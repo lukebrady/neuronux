@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <string.h>
 #include <fcntl.h>
 
 #ifndef BUF_SIZE
@@ -16,7 +17,7 @@ int main(int argc, char *argv[]) {
     ssize_t numRead;
     char buf[BUF_SIZE];
     // Check to see if enough arguments have been given to the program.
-    if (argc != 3 || strcmp(argv[1] == "--help")) {
+    if (argc != 3) {
         printf("cp <source> <destination>\n");
         exit(EXIT_FAILURE);
     }
@@ -36,5 +37,10 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Transfer data until error is encountered or data is done.
-    while
+    while ((numRead = read(inputFD, buf, BUF_SIZE)) > 0) {
+        if (write(outputFD, buf, numRead) != numRead) {
+            printf("Error\n");
+        }
+    }
+    exit(EXIT_SUCCESS);
 }
