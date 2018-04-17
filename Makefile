@@ -1,3 +1,4 @@
+# Make file used to build Neuroux. This build will be fully automated.
 GCC="/usr/bin/gcc"
 
 init:
